@@ -16,12 +16,12 @@ class ApiController extends Controller
     public function index(Request $request)
     {
         try {
-            if ($request->header('xxx') == '111'){
-                $users = User::with('personaData')->get();
+            if ($request->header('api-key') == env('APP_KEY')){
+                $users = User::with('personalData')->get();
                 return response()->json([
                     'users' => $users,
                     'status' => true,
-                    'api_key' => $request->xxx
+                    'api_key' => $request->header('api-key')
                 ]);
             }else{
                 return response()->json([
